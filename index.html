@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A* Algorithm Visualizer</title>
+    <meta name="description" content="Visualize the A* algorithm step by step.">
+    <meta name="keywords" content="A* Algorithm, Visualization, JavaScript">
+    <meta name="author" content="edujbarrios">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style id="grid-style">
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(20, 30px);
+            gap: 1px;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+        }
+        .start {
+            background-color: green;
+        }
+        .end {
+            background-color: red;
+        }
+        .wall {
+            background-color: black;
+        }
+        .path {
+            background-color: yellow;
+        }
+        .open {
+            background-color: lightgreen;
+        }
+        .closed {
+            background-color: lightcoral;
+        }
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(10, 20px);
+            }
+            .cell {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="flex flex-col items-center space-y-6">
+        <div class="flex flex-col items-center">
+            <div class="mb-4">
+                <label for="speedSelect">Select Speed:</label>
+                <select id="speedSelect" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="50">Fast</option>
+                    <option value="200">Medium</option>
+                    <option value="500">Slow</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="heuristicSelect">Select Heuristic:</label>
+                <select id="heuristicSelect" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="manhattan">Manhattan</option>
+                    <option value="euclidean">Euclidean</option>
+                    <option value="chebyshev">Chebyshev</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="gridSizeSelect">Grid Size:</label>
+                <select id="gridSizeSelect" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="20">20 x 20</option>
+                    <option value="30">30 x 30</option>
+                    <option value="40">40 x 40</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="cellSizeSelect">Cell Size:</label>
+                <select id="cellSizeSelect" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="20">20px</option>
+                    <option value="30">30px</option>
+                    <option value="40">40px</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="styleSelect">Visualization Style:</label>
+                <select id="styleSelect" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="default">Default</option>
+                    <option value="blue">Blue Theme</option>
+                    <option value="dark">Dark Theme</option>
+                </select>
+            </div>
+            <div class="mb-4 flex space-x-4">
+                <button onclick="visualizeAStar()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">Visualize A*</button>
+                <button onclick="resetGrid()" class="px-4 py-2 font-bold text-white bg-red-500 rounded">Reset</button>
+            </div>
+            <div id="timeCounter" class="mb-4 text-lg">Time: 0 ms</div>
+        </div>
+        <div id="grid" class="grid mx-auto"></div>
+        <div id="description" class="mt-4 p-4 text-center">
+            <h2 class="text-xl font-bold">A* Algorithm</h2>
+            <p>The A* algorithm is a pathfinding and graph traversal algorithm, which is often used in computer science due to its performance and accuracy. It finds the shortest path from a start node to a goal node by using a heuristic to estimate the cost to reach the goal from the current node. The algorithm maintains a priority queue of nodes to be explored, prioritizing nodes with the lowest estimated total cost (current cost + estimated cost to goal). As it explores nodes, it builds the optimal path incrementally, guaranteeing the shortest path is found if one exists.</p>
+            <p>The key features of the A* algorithm include:</p>
+            <ul class="list-disc list-inside text-left">
+                <li>Uses a heuristic function to guide the search towards the goal.</li>
+                <li>Combines the benefits of Dijkstra's Algorithm and Greedy Best-First-Search.</li>
+                <li>Is complete and optimal, meaning it will always find the shortest path if one exists.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="fixed bottom-4 left-4 flex items-center space-x-2">
+    <span>Made by <a href="https://github.com/edujbarrios" target="_blank" class="text-blue-500 font-bold">edujbarrios.</a></span>
+</div>
+<script src="main.js"></script>
+<script src="aStar.js"></script>
+</body>
+</html>
